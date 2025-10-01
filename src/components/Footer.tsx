@@ -1,4 +1,4 @@
-import { Building2 } from "lucide-react";
+import vitaLogo from "@/assets/vita-logo.png";
 
 const Footer = () => {
   return (
@@ -6,9 +6,9 @@ const Footer = () => {
       <div className="container px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <Building2 className="h-6 w-6 text-primary" />
-              <span className="text-lg font-bold">SupplierHub</span>
+            <div className="flex items-center gap-3 mb-4">
+              <img src={vitaLogo} alt="VITA Logo" className="h-8 w-8" />
+              <span className="text-lg font-bold">VITA</span>
             </div>
             <p className="text-sm text-muted-foreground">
               Empowering general contractors to build better through streamlined supplier management.
