@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Database, Shield, BarChart3, MessageSquare, FileText, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const services = [
   {
@@ -10,36 +11,42 @@ const services = [
     title: "Supplier Database Management",
     description: "Centralized supplier directory with detailed profiles, certifications, and performance history.",
     features: ["Custom categorization", "Advanced search", "Real-time updates", "Export capabilities"],
+    link: "/service/supplier-database",
   },
   {
     icon: FileText,
     title: "Order & Invoice Tracking",
     description: "Complete visibility into purchase orders, invoices, and payment status across all suppliers.",
     features: ["Automated tracking", "Payment reminders", "Document storage", "Audit trails"],
+    link: "/service/order-tracking",
   },
   {
     icon: MessageSquare,
     title: "Communication Hub",
     description: "Integrated messaging system for seamless communication with your supplier network.",
     features: ["Direct messaging", "File sharing", "Group conversations", "Email integration"],
+    link: "/service/communication-hub",
   },
   {
     icon: BarChart3,
     title: "Performance Analytics",
     description: "Data-driven insights on supplier performance, costs, delivery times, and reliability.",
     features: ["Custom dashboards", "Performance metrics", "Cost analysis", "Trend reports"],
+    link: "/service/performance-analytics",
   },
   {
     icon: Shield,
     title: "Compliance Management",
     description: "Ensure all suppliers meet insurance, licensing, and safety requirements automatically.",
     features: ["License tracking", "Insurance verification", "Expiration alerts", "Compliance reports"],
+    link: "/service/compliance-management",
   },
   {
     icon: Users,
     title: "Team Collaboration",
     description: "Enable your entire team to access supplier information and collaborate efficiently.",
     features: ["Role-based access", "Activity logs", "Team notifications", "Shared workspaces"],
+    link: "/service/team-collaboration",
   },
 ];
 
@@ -67,25 +74,27 @@ const Service = () => {
           <div className="container px-4 sm:px-6 lg:px-8">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {services.map((service) => (
-                <Card key={service.title} className="border-border hover:shadow-lg transition-shadow duration-300">
-                  <CardHeader>
-                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                      <service.icon className="h-6 w-6 text-primary" />
-                    </div>
-                    <CardTitle className="text-xl">{service.title}</CardTitle>
-                    <CardDescription className="text-base">{service.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2">
-                      {service.features.map((feature) => (
-                        <li key={feature} className="text-sm text-muted-foreground flex items-center">
-                          <span className="w-1.5 h-1.5 rounded-full bg-primary mr-2" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
+                <Link key={service.title} to={service.link}>
+                  <Card className="border-border hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer h-full">
+                    <CardHeader>
+                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                        <service.icon className="h-6 w-6 text-primary" />
+                      </div>
+                      <CardTitle className="text-xl">{service.title}</CardTitle>
+                      <CardDescription className="text-base">{service.description}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <ul className="space-y-2">
+                        {service.features.map((feature) => (
+                          <li key={feature} className="text-sm text-muted-foreground flex items-center">
+                            <span className="w-1.5 h-1.5 rounded-full bg-primary mr-2" />
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
+                    </CardContent>
+                  </Card>
+                </Link>
               ))}
             </div>
           </div>
