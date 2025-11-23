@@ -1,8 +1,19 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Database, CheckCircle } from "lucide-react";
+import { Database, CheckCircle, Star } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+
+const mockSuppliers = [
+  { id: 1, name: "ABC Electrical Co.", category: "Electrical", rating: 4.8, projects: 45, status: "Active", location: "New York, NY" },
+  { id: 2, name: "Prime Plumbing Services", category: "Plumbing", rating: 4.9, projects: 62, status: "Active", location: "Los Angeles, CA" },
+  { id: 3, name: "Elite Roofing Inc.", category: "Roofing", rating: 4.7, projects: 38, status: "Active", location: "Chicago, IL" },
+  { id: 4, name: "Foundation Masters", category: "Foundation", rating: 4.6, projects: 29, status: "Pending", location: "Houston, TX" },
+  { id: 5, name: "ProBuild Materials", category: "Materials", rating: 4.9, projects: 91, status: "Active", location: "Phoenix, AZ" },
+];
 
 const SupplierDatabase = () => {
   return (
@@ -50,22 +61,79 @@ const SupplierDatabase = () => {
               </div>
 
               <div>
-                <h2 className="text-3xl font-bold mb-6">How It Works</h2>
-                <div className="space-y-4 text-muted-foreground">
-                  <p>
-                    Our supplier database management system provides a centralized location for all your supplier information.
-                    Easily add new suppliers, update existing profiles, and maintain a comprehensive record of all interactions.
-                  </p>
-                  <p>
-                    With advanced categorization options, you can organize suppliers by trade, location, specialty, or any custom
-                    criteria that fits your business needs. The powerful search functionality ensures you can find the right
-                    supplier in seconds.
-                  </p>
-                  <p>
-                    Track certifications, insurance policies, and licenses with automatic expiration alerts to ensure compliance.
-                    Monitor supplier performance over time with detailed metrics and historical data.
-                  </p>
-                </div>
+                <h2 className="text-3xl font-bold mb-6">Sample Supplier Database</h2>
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Your Suppliers</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Name</TableHead>
+                          <TableHead>Category</TableHead>
+                          <TableHead>Location</TableHead>
+                          <TableHead>Rating</TableHead>
+                          <TableHead>Projects</TableHead>
+                          <TableHead>Status</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {mockSuppliers.map((supplier) => (
+                          <TableRow key={supplier.id}>
+                            <TableCell className="font-medium">{supplier.name}</TableCell>
+                            <TableCell>
+                              <Badge variant="outline">{supplier.category}</Badge>
+                            </TableCell>
+                            <TableCell className="text-muted-foreground">{supplier.location}</TableCell>
+                            <TableCell>
+                              <div className="flex items-center gap-1">
+                                <Star className="h-4 w-4 fill-primary text-primary" />
+                                <span>{supplier.rating}</span>
+                              </div>
+                            </TableCell>
+                            <TableCell>{supplier.projects}</TableCell>
+                            <TableCell>
+                              <Badge variant={supplier.status === "Active" ? "default" : "secondary"}>
+                                {supplier.status}
+                              </Badge>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg">Total Suppliers</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-4xl font-bold text-primary">127</div>
+                    <p className="text-sm text-muted-foreground mt-2">Across 15 categories</p>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg">Active Projects</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-4xl font-bold text-primary">342</div>
+                    <p className="text-sm text-muted-foreground mt-2">Currently in progress</p>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg">Avg. Rating</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-4xl font-bold text-primary">4.7</div>
+                    <p className="text-sm text-muted-foreground mt-2">Out of 5.0 stars</p>
+                  </CardContent>
+                </Card>
               </div>
 
               <div className="bg-secondary/30 rounded-lg p-8">
