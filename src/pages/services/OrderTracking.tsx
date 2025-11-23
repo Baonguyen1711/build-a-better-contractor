@@ -1,8 +1,19 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { FileText, CheckCircle } from "lucide-react";
+import { FileText, CheckCircle, Clock, DollarSign } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+
+const mockOrders = [
+  { id: "PO-2024-001", supplier: "ABC Electrical Co.", amount: "$15,420", status: "Delivered", date: "2024-01-15", dueDate: "2024-02-15" },
+  { id: "PO-2024-002", supplier: "Prime Plumbing Services", amount: "$8,750", status: "In Transit", date: "2024-01-18", dueDate: "2024-02-18" },
+  { id: "PO-2024-003", supplier: "Elite Roofing Inc.", amount: "$23,100", status: "Processing", date: "2024-01-20", dueDate: "2024-02-20" },
+  { id: "PO-2024-004", supplier: "ProBuild Materials", amount: "$45,200", status: "Delivered", date: "2024-01-12", dueDate: "2024-02-12" },
+  { id: "PO-2024-005", supplier: "Foundation Masters", amount: "$31,500", status: "Pending", date: "2024-01-22", dueDate: "2024-02-22" },
+];
 
 const OrderTracking = () => {
   return (
@@ -50,21 +61,81 @@ const OrderTracking = () => {
               </div>
 
               <div>
-                <h2 className="text-3xl font-bold mb-6">How It Works</h2>
-                <div className="space-y-4 text-muted-foreground">
-                  <p>
-                    Track every purchase order from creation to completion. Our system automatically monitors order status,
-                    delivery schedules, and payment deadlines, ensuring nothing falls through the cracks.
-                  </p>
-                  <p>
-                    Match invoices to purchase orders with ease, validate pricing and quantities, and maintain a complete
-                    audit trail of all transactions. Receive automated reminders for upcoming payments and overdue invoices.
-                  </p>
-                  <p>
-                    Store all order-related documents securely in one place, accessible to authorized team members whenever needed.
-                    Generate reports to analyze spending patterns and identify cost-saving opportunities.
-                  </p>
-                </div>
+                <h2 className="text-3xl font-bold mb-6">Recent Purchase Orders</h2>
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Order Management Dashboard</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Order ID</TableHead>
+                          <TableHead>Supplier</TableHead>
+                          <TableHead>Amount</TableHead>
+                          <TableHead>Order Date</TableHead>
+                          <TableHead>Payment Due</TableHead>
+                          <TableHead>Status</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {mockOrders.map((order) => (
+                          <TableRow key={order.id}>
+                            <TableCell className="font-medium">{order.id}</TableCell>
+                            <TableCell>{order.supplier}</TableCell>
+                            <TableCell className="font-semibold">{order.amount}</TableCell>
+                            <TableCell className="text-muted-foreground">{order.date}</TableCell>
+                            <TableCell className="text-muted-foreground">{order.dueDate}</TableCell>
+                            <TableCell>
+                              <Badge 
+                                variant={
+                                  order.status === "Delivered" ? "default" : 
+                                  order.status === "In Transit" ? "secondary" : 
+                                  "outline"
+                                }
+                              >
+                                {order.status}
+                              </Badge>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-6">
+                <Card>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-lg">Total Orders</CardTitle>
+                    <FileText className="h-5 w-5 text-muted-foreground" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-4xl font-bold text-primary">248</div>
+                    <p className="text-sm text-muted-foreground mt-2">This year</p>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-lg">Total Value</CardTitle>
+                    <DollarSign className="h-5 w-5 text-muted-foreground" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-4xl font-bold text-primary">$2.4M</div>
+                    <p className="text-sm text-muted-foreground mt-2">Cumulative value</p>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-lg">Pending Payments</CardTitle>
+                    <Clock className="h-5 w-5 text-muted-foreground" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-4xl font-bold text-primary">12</div>
+                    <p className="text-sm text-muted-foreground mt-2">Awaiting payment</p>
+                  </CardContent>
+                </Card>
               </div>
 
               <div className="bg-secondary/30 rounded-lg p-8">
